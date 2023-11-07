@@ -31,3 +31,6 @@ scp -i /path/to/your/ec2/key.pem "${DOWNLOAD_DIR}/${FILE_PATH}" ${EC2_USER}@${EC
 
 # Cleanup
 rm -rf ${REPO_NAME}
+###
+###curl -0 shell https://raw.githubusercontent.com/gauthamyadamari/shell/main/hello.txt
+####
