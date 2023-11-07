@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # GitHub repository information
-REPO_OWNER="gauthamyadamari"
-REPO_NAME="shell"
+REPO_OWNER="your_username"
+REPO_NAME="your_repository"
 FILE_PATH="hello.txt"  # Set this to the correct file path within the repository
 COMMIT_SHA=$(git ls-remote https://github.com/${REPO_OWNER}/${REPO_NAME}.git HEAD | cut -f 1)
 
 # GitHub API Token
-GITHUB_TOKEN="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"
+GITHUB_TOKEN="ur token id"
 
 # EC2 SSH Connection Info
 EC2_IP="18.208.180.35"
@@ -15,3 +15,19 @@ EC2_USER="ec2-user"
 
 # Directory to store the downloaded file
 DOWNLOAD_DIR="/home/ec2-user/jen"
+
+# Remove existing repository directory if it exists
+rm -rf ${REPO_NAME}
+
+# Clone the repository
+git clone https://github.com/${REPO_OWNER}/${REPO_NAME}.git
+cd ${REPO_NAME}
+
+# Download the file
+curl -H "Authorization: token $GITHUB_TOKEN" -o "${DOWNLOAD_DIR}/${FILE_PATH}" "https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${COMMIT_SHA}/${FILE_PATH}"
+
+# Transfer the file to the EC2 instance
+scp -i /path/to/your/ec2/key.pem "${DOWNLOAD_DIR}/${FILE_PATH}" ${EC2_USER}@${EC2_IP}:/path/on/ec2
+
+# Cleanup
+rm -rf ${REPO_NAME}
