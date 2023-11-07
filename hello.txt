@@ -1,3 +1,17 @@
-hello 
-good morninig
-ht5g6yuj
+#!/bin/bash
+
+# GitHub repository information
+REPO_OWNER="gauthamyadamari"
+REPO_NAME="shell"
+FILE_PATH="hello.txt"  # Set this to the correct file path within the repository
+COMMIT_SHA=$(git ls-remote https://github.com/${REPO_OWNER}/${REPO_NAME}.git HEAD | cut -f 1)
+
+# GitHub API Token
+GITHUB_TOKEN="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"
+
+# EC2 SSH Connection Info
+EC2_IP="18.208.180.35"
+EC2_USER="ec2-user"
+
+# Directory to store the downloaded file
+DOWNLOAD_DIR="/home/ec2-user/jen"
